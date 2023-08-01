@@ -50,7 +50,6 @@ function Category() {
 
   return (
     <>
-      <Navbar />
       <div className="flex justify-center align-center">
         <div className=" flex flex-1 flex-col justify-center px-6 py-6 shadow-xl max-w-5xl rounded border-l-[8px] border-l-blue-400 m-10">
           <div className="container mx-auto">
@@ -174,7 +173,6 @@ function Category() {
       {showForm.map((data, index) => {
         return <Category key={index} />;
       })}
-      <Footer/>
     </>
   );
 }

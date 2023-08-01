@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = ({ changeView }) => {
+const Navbar = () => {
+    const navigate = useNavigate()
   return (
     <nav
       style={{
@@ -12,11 +13,7 @@ const Navbar = ({ changeView }) => {
         <div className="relative flex items-center justify-between h-16">
           <div className="inset-y-0 left-0 flex items-center">
             <img
-              className="block lg:hidden h-10 w-auto"
-              src="https://www.svgrepo.com/show/384978/donut-doughnut-sweet-dessert-food-fastfood.svg"
-              alt="Logo"
-            />
-            <img
+            onClick={() =>navigate("/")}
               className="hidden lg:block h-10 w-auto"
               src="https://www.svgrepo.com/show/384978/donut-doughnut-sweet-dessert-food-fastfood.svg"
               alt="Logo"
