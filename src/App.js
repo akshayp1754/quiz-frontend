@@ -6,9 +6,9 @@ import Form from "./Form";
 function App() {
   return (
     <div>
-      <Category></Category>
+      <Category/>
       {/* <Comprehension></Comprehension> */}
-      <Form></Form>
+      {/* <Form/> */}
     </div>
   );
 }
