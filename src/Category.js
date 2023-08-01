@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Navbar from "./component/Navbar";
+import Footer from "./component/Footer";
 
 function Category() {
   const [inputDescription, setInputDescription] = useState({ description: "" });
 
   const [showForm, setShowForm] = useState([]);
-  const [quesNum, setQuesNum] = useState(1)
+  const [quesNum, setQuesNum] = useState(1);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -41,64 +43,40 @@ function Category() {
     setInputFields(updatedInputFields);
   };
 
-  const handleNewForm =()=>{
-    const newform = [...showForm,[]];
+  const handleNewForm = () => {
+    const newform = [...showForm, []];
     setShowForm(newform);
-  }
+  };
 
   return (
     <>
-    <div className="flex justify-center align-center">
-      <div className=" flex flex-1 flex-col justify-center px-6 py-6 shadow-xl max-w-5xl rounded border-l-[8px] border-l-blue-400 m-10">
-        <div className="container mx-auto">
-          <h1 className="text-2xl font-bold mb-4">Question {quesNum}</h1>
-          <div className="col-span-full">
-            <label
-              htmlFor="about"
-              className="text-xl font-medium leading-6 text-gray-900"
-            >
-              About
-            </label>
-            <div className="mt-1">
-              <textarea
-                id="about"
-                name="description"
-                value={inputDescription.description}
-                rows={3}
-                placeholder="Description(optional)"
-                className=" w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={""}
-                onChange={handleChange}
-              />
+      <Navbar />
+      <div className="flex justify-center align-center">
+        <div className=" flex flex-1 flex-col justify-center px-6 py-6 shadow-xl max-w-5xl rounded border-l-[8px] border-l-blue-400 m-10">
+          <div className="container mx-auto">
+            <h1 className="text-2xl font-bold mb-4">Question {quesNum}</h1>
+            <div className="col-span-full">
+              <label
+                htmlFor="about"
+                className="text-xl font-medium leading-6 text-gray-900"
+              >
+                About
+              </label>
+              <div className="mt-1">
+                <textarea
+                  id="about"
+                  name="description"
+                  value={inputDescription.description}
+                  rows={3}
+                  placeholder="Description(optional)"
+                  className=" w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  defaultValue={""}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
-          </div>
 
-          <h3 className="text-xl mt-10 mb-4">Categories</h3>
-          {inputFields.map((inputField) => (
-            <div key={inputField.id} className="mt-2">
-              <input
-                type="text"
-                name={`input-${inputField.id}`}
-                id={`input-${inputField.id}`}
-                value={inputField.value}
-                onChange={(e) =>
-                  handleInputChange(inputField.id, e.target.value)
-                }
-                className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          ))}
-          <button
-            onClick={handleAddInput}
-            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            +
-          </button>
-        </div>
-
-        <div className="flex justify-end">
-          <div className="container mx-auto p-4">
-            <h1 className="text-xl mb-4">Item</h1>
+            <h3 className="text-xl mt-10 mb-4">Categories</h3>
             {inputFields.map((inputField) => (
               <div key={inputField.id} className="mt-2">
                 <input
@@ -120,61 +98,83 @@ function Category() {
               +
             </button>
           </div>
-          <div className="container mx-auto p-4">
-            <h1 className="text-xl mb-4">belongs to</h1>
-            {inputFields.map((inputField) => (
-              <div key={inputField.id} className="mt-2">
-                <select
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  <option></option>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
-            ))}
+
+          <div className="flex justify-end">
+            <div className="container mx-auto p-4">
+              <h1 className="text-xl mb-4">Item</h1>
+              {inputFields.map((inputField) => (
+                <div key={inputField.id} className="mt-2">
+                  <input
+                    type="text"
+                    name={`input-${inputField.id}`}
+                    id={`input-${inputField.id}`}
+                    value={inputField.value}
+                    onChange={(e) =>
+                      handleInputChange(inputField.id, e.target.value)
+                    }
+                    className="block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              ))}
+              <button
+                onClick={handleAddInput}
+                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                +
+              </button>
+            </div>
+            <div className="container mx-auto p-4">
+              <h1 className="text-xl mb-4">belongs to</h1>
+              {inputFields.map((inputField) => (
+                <div key={inputField.id} className="mt-2">
+                  <select
+                    id="country"
+                    name="country"
+                    autoComplete="country-name"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  >
+                    <option></option>
+                    <option></option>
+                    <option></option>
+                  </select>
+                </div>
+              ))}
+              <button
+                onClick={handleAddInput}
+                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div className="mt-6 flex items-center justify-end gap-x-6">
             <button
-              onClick={handleAddInput}
-              className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              type="button"
+              className="text-sm font-semibold leading-6 text-gray-900"
             >
-              +
+              Cancel
+            </button>
+            <button
+              type="submit"
+              onClick={handleClick}
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Save
+            </button>
+            <button
+              type="submit"
+              onClick={handleNewForm}
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              add new
             </button>
           </div>
         </div>
-        <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button
-            type="button"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            onClick={handleClick}
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Save
-          </button>
-          <button
-            type="submit"
-            onClick={handleNewForm}
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            add new
-          </button>
-        </div>
       </div>
-    </div>
-    {
-      showForm.map((data,index)=>{
-        return(
-          <Category key={index}/>
-        )
-      })
-    }
+      {showForm.map((data, index) => {
+        return <Category key={index} />;
+      })}
+      <Footer/>
     </>
   );
 }
