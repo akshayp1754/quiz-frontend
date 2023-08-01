@@ -6,6 +6,7 @@ function Category() {
   const [inputDescription, setInputDescription] = useState({ description: "" });
 
   const [showForm, setShowForm] = useState([]);
+  const [quesNum, setQuesNum] = useState(1)
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -50,7 +51,7 @@ function Category() {
     <div className="flex justify-center align-center">
       <div className=" flex flex-1 flex-col justify-center px-6 py-6 shadow-xl max-w-5xl rounded border-l-[8px] border-l-blue-400 m-10">
         <div className="container mx-auto">
-          <h1 className="text-2xl font-bold mb-4">Question 1</h1>
+          <h1 className="text-2xl font-bold mb-4">Question {quesNum}</h1>
           <div className="col-span-full">
             <label
               htmlFor="about"
@@ -168,9 +169,9 @@ function Category() {
       </div>
     </div>
     {
-      showForm.map((form)=>{
+      showForm.map((data,index)=>{
         return(
-          <Category/>
+          <Category key={index}/>
         )
       })
     }
