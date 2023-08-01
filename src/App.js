@@ -7,6 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from "./Home";
+import Test from "./Test";
 
 function App() {
 
@@ -23,18 +24,14 @@ function App() {
       path: "/category",
       element: <Category></Category>,
     },
+    {
+      path: "/test",
+      element: <Test></Test>,
+    },
   ]);
   
   return (
-    // <div>
-    //   {/* <Category></Category> */}
-    //   {/* <Comprehension></Comprehension> */}
-    //   <Form></Form>
-    //   <div >
-   //   </div>
-    // </div>
     
-
     <RouterProvider router={router} />
     
   );
