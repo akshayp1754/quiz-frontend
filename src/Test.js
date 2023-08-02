@@ -4,25 +4,35 @@ import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 
 function Test() {
-  const [ques, setQues] = useState([
-    {
-      passage: "",
-      questionTitle: "",
-      questionText: "",
-      option: "",
-    },
-  ]);
+  const [ques, setQues] = useState([]);
+  //   {
+  //     passage: "",
+  //     questionTitle: "",
+  //     questionText: "",
+  //     option: "",
+  //   },
+  // ]);
 
+  const fechQuestion = async()=>{
+   try{
+    const res = await fetch("/test");
+    const ques = await res.json();
+    setQues(ques);
+   }catch(error){
+      console.log(error);
+  }
+  }
   useEffect(() => {
-    fetch("/test")
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then((jsonRes) => setQues(jsonRes));
-    console.log(ques);
-  });
+    // fetch("/test")
+    //   .then((res) => {
+    //     if (res.ok) {
+    //       return res.json();
+    //     }
+    //   })
+    //   .then((jsonRes) => setQues(jsonRes));
+    // console.log(ques);
+    fechQuestion();
+  },[]);
   return (
     <>
       <Navbar />
@@ -35,9 +45,9 @@ function Test() {
           ></div>
           <div>
             {
-              // ques.length === 0 ? (
-              //   <div>Loading...</div>
-              // ) : (
+              ques.length === 0 ? (
+                <div>Loading...</div>
+              ) : (
               <>
                 {ques.map((que) => (
                   <div className="m-5 border  ">
@@ -52,7 +62,7 @@ function Test() {
                   </div>
                 ))}
               </>
-              // )
+              )
             }
           </div>
         </div>
