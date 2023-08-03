@@ -1,13 +1,13 @@
 import Category from "./Category";
-import './App.css'
-import Comprehension from "./Comprehension";
-import Form from "./Form";
+import Form from "./Comprehension";
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import Home from "./Home";
 import Test from "./Test";
+import Registration from "./login/Registration";
+import Signin from "./login/Signin";
 
 function App() {
 
@@ -15,6 +15,14 @@ function App() {
     {
       path: "/",
       element: <Home></Home>,
+    },
+    {
+      path: "/login",
+      element: <Signin></Signin>,
+    },
+    {
+      path: "/signup",
+      element: <Registration></Registration> ,
     },
     {
       path: "/comprehension",

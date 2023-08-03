@@ -3,13 +3,16 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function Category() {
-  const [inputDescription, setInputDescription] = useState({ description: "" });
+  const [inputDescription, setInputDescription] = useState({ 
+    description: "",
+    categories: "", 
+ });
 
   const [showForm, setShowForm] = useState([]);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    setInputDescription({ description: value });
+    setInputDescription({ description: value});
     console.log(value);
   };
 
@@ -17,6 +20,9 @@ function Category() {
     e.preventDefault();
     const newCategory = {
       description: inputDescription.description,
+      categories: inputDescription.categories,
+      
+      
     };
 
     axios.post("http://localhost:8080/category", newCategory);
@@ -44,6 +50,23 @@ function Category() {
     const newform = [...showForm,[]];
     setShowForm(newform);
   }
+  const [categories, setCategories] = useState(['']);
+
+  const handleCategoryChange = (index, value) => {
+    const updatedCategories = [...categories];
+    updatedCategories[index] = value;
+    setCategories(updatedCategories);
+  };
+
+  const handleAddNew = () => {
+    setCategories([...categories, '']);
+  };
+
+  const handleRemove = (index) => {
+    const updatedCategories = [...categories];
+    updatedCategories.splice(index, 1);
+    setCategories(updatedCategories);
+  };
 
   return (
     <>
@@ -174,6 +197,26 @@ function Category() {
         )
       })
     }
+
+
+    <div className="sm:col-span-2 sm:col-start-1">
+              <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+                Category
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="city"
+                  id="city"
+                  className="block  rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+
+
+
+
     </>
   );
 }
