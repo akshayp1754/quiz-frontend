@@ -1,7 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function Signin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("http://localhost:8080/login", {
+        email,
+        password,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "Submitted!!",
+      });
+      console.log(data);
+      localStorage.setItem("User", JSON.stringify(data));
+      navigate("/");
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "server error!!",
+      });
+    }
+  };
+
+  useEffect(() => {
+    const user = localStorage.getItem("User");
+    if (user) {
+      navigate("/");
+    }
+  }, []);
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -27,6 +63,8 @@ function Signin() {
               </label>
               <div className="mt-2">
                 <input
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                   id="email"
                   name="email"
                   type="email"
@@ -56,6 +94,8 @@ function Signin() {
               </div>
               <div className="mt-2">
                 <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                   id="password"
                   name="password"
                   type="password"
@@ -68,6 +108,7 @@ function Signin() {
 
             <div>
               <button
+                onClick={handleLogin}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
@@ -79,9 +120,8 @@ function Signin() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
             <Link
-              href="#"
               to="/signup"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              className="font-semibold leading-6 cursor-pointer text-indigo-600 hover:text-indigo-500"
             >
               Signup
             </Link>

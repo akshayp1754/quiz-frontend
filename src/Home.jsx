@@ -1,29 +1,30 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 import Category from "./Category";
 import Form from "./Comprehension";
-import Registration from "./login/Registration";
 import UploadImage from "./UploadImage";
-
 
 function Home() {
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState('');
-
-  
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
+  useEffect(() => {
+    const user = localStorage.getItem("User");
+    if (!user) {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <>
       <Navbar />
-      
 
-      
       <div className="mt-2 ">
         <select
           name="question type"
@@ -34,13 +35,12 @@ function Home() {
           <option value="comprehension"> comprehension</option>
           <option value="category">Category</option>
         </select>
-      {selectedOption === 'category' && <Category/>}
-      {selectedOption === 'comprehension' && <Form/>}
+        {selectedOption === "category" && <Category />}
+        {selectedOption === "comprehension" && <Form />}
       </div>
 
-      
       {/* <Footer/> */}
-      
+
       <UploadImage></UploadImage>
     </>
   );

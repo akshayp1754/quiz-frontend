@@ -2,34 +2,42 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Registration() {
-  const [userName, setUserName] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
-  const [passwordd, setPasswordd] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  function clearInput() {
-    setUserName("");
-    setEmailAddress("");
-    setPasswordd("");
-  }
-  async function UserPost() {
-    const userDetails = {
-      username: userName,
-      email: emailAddress,
-      password: passwordd,
-    };
+  // function clearInput() {
+  //   setUserName("");
+  //   setEmailAddress("");
+  //   setPasswordd("");
+  // }
+  async function UserPost(e) {
+    e.preventDefault();
+    // const userDetails = {
+    //   username: userName,
+    //   email: emailAddress,
+    //   password: passwordd,
+    // };
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/user-register",
-        userDetails
-      );
+      const { data } = await axios.post("http://localhost:8080/signup", {
+        username,
+        email,
+        password,
+      });
       Swal.fire({
         icon: "success",
         title: "Submitted!!",
       });
-      clearInput();
+      console.log(data);
+      localStorage.setItem("User", JSON.stringify(data));
+      navigate("/");
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -37,6 +45,13 @@ function Registration() {
       });
     }
   }
+
+  useEffect(() => {
+    const user = localStorage.getItem("User");
+    if (user) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
@@ -61,8 +76,8 @@ function Registration() {
                   id="email"
                   name="email"
                   type="text"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -81,8 +96,8 @@ function Registration() {
                   id="email"
                   name="email"
                   type="email"
-                  value={emailAddress}
-                  onChange={(e) => setEmailAddress(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -111,8 +126,8 @@ function Registration() {
                   id="password"
                   name="password"
                   type="password"
-                  value={passwordd}
-                  onChange={(e) => setPasswordd(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -132,12 +147,12 @@ function Registration() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Already a member?{" "}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            <Link
+              to="/login"
+              className="font-semibold cursor-pointer leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </div>

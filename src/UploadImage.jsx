@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const UploadImage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -11,11 +11,7 @@ const UploadImage = () => {
   return (
     <div>
       <h2>Upload Image</h2>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-      />
+      <input type="file" accept="image/*" onChange={handleFileChange} />
       <br />
       <button onClick={() => setSelectedFile(null)}>Clear</button>
       {selectedFile && (
@@ -24,7 +20,7 @@ const UploadImage = () => {
           <img
             src={URL.createObjectURL(selectedFile)}
             alt="Selected"
-            style={{ maxWidth: '300px' }}
+            style={{ maxWidth: "300px" }}
           />
         </div>
       )}

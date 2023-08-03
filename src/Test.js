@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { json } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 
