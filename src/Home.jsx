@@ -1,24 +1,30 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
+import Category from "./Category";
+import Form from "./Comprehension";
+import Registration from "./login/Registration";
+import UploadImage from "./UploadImage";
+
 
 function Home() {
   const navigate = useNavigate();
+  const [selectedOption, setSelectedOption] = useState('');
+
+  
 
   const handleSelectChange = (event) => {
-    const selectedOption = event.target.value;
-    if (selectedOption === "comprehension") {
-      navigate("/comprehension");
-    } else if (selectedOption === "category") {
-      navigate("/category");
-    }
+    setSelectedOption(event.target.value);
   };
 
   return (
     <>
       <Navbar />
-      <div className="mt-2">
+      
+
+      
+      <div className="mt-2 ">
         <select
           name="question type"
           onChange={handleSelectChange}
@@ -28,8 +34,14 @@ function Home() {
           <option value="comprehension"> comprehension</option>
           <option value="category">Category</option>
         </select>
+      {selectedOption === 'category' && <Category/>}
+      {selectedOption === 'comprehension' && <Form/>}
       </div>
+
+      
       {/* <Footer/> */}
+      
+      <UploadImage></UploadImage>
     </>
   );
 }
