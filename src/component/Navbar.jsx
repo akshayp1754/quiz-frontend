@@ -36,7 +36,7 @@ const Navbar = () => {
               className="hidden lg:block h-10 w-auto"
               src="https://www.svgrepo.com/show/384978/donut-doughnut-sweet-dessert-food-fastfood.svg"
               alt="Logo"
-            />
+            /> <Link to="/"></Link>
           </div>
           <div className="flex w-2/3 items-center">
             <label htmlFor="simple-search" className="sr-only">
@@ -60,7 +60,7 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-              <input
+              {/* <input
                 style={{
                   borderBottom: "1px solid #ffbf00",
                 }}
@@ -72,7 +72,7 @@ const Navbar = () => {
                 bg-white-50  text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  "
                 placeholder="Search post by name..."
                 required=""
-              />
+              /> */}
             </div>
           </div>
 
@@ -86,28 +86,21 @@ const Navbar = () => {
                   aria-haspopup="true"
                 >
                   <span className="sr-only">Open user menu</span>
-                  <span className="bg-yellow-500 rounded-full h-8 w-8 flex items-center justify-center">
-                    {/* {user ? (
-                      <span className="text-white font-medium">
-                        {user.charAt(0).toUpperCase()}
-                      </span>
-                    ) : (<></>)} */}
-                    A
-                  </span>
+                  
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="max-w-xs justify-center bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:shadow-solid"
+                  className="max-w-xs justify-center p-2 bg-gray-800 text-white rounded-full flex items-center text-sm focus:outline-none focus:shadow-solid"
                   id="user-menu"
                   aria-label="User menu"
                   aria-haspopup="true"
-                >
-                  <span className="bg-yellow-500 rounded-full h-8 w-8 flex items-center justify-center">
+                > Logout
+                  {/* <span className="bg-yellow-500 rounded-full h-8 w-8 flex items-center justify-center">
                     <img
                       src="https://www.svgrepo.com/show/500927/logout.svg"
                       alt="logout"
                     />
-                  </span>
+                  </span> */}
                 </button>
               </div>
             </div>

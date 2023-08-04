@@ -6,33 +6,30 @@ function Form() {
   const [inputFields, setInputFields] = useState([{ value: "", id: 1 }]);
   const [radioChecked, setRadioChecked] = useState(false);
   const [options, setOptions] = useState(["", "", "", ""]);
+  const [showForm, setShowForm] = useState([]);
 
-  async function OptionPost() {
-    const data = {
-      passage: input.passage,
-      questionTitle: input.questionTitle,
-      questionText: input.questionText,
-      option: input.option,
-      option: options,
-    };
+  // async function OptionPost() {
+  //   const data = {
+  //     option: options,
+  //   };
 
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/comprehension",
-        data
-      );
-      Swal.fire({
-        icon: "success",
-        title: "Submitted!!",
-      });
-      // clearInput();
-    } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "server error!!",
-      });
-    }
-  }
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:8080/comprehension",
+  //       data
+  //     );
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Submitted!!",
+  //     });
+  //     // clearInput();
+  //   } catch (err) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "server error!!",
+  //     });
+  //   }
+  // }
 
   const handleOptionChange = (index, value) => {
     const updatedOptions = [...options];
@@ -79,21 +76,27 @@ function Form() {
     });
   }
 
-  // function handleClick(e) {
-  //   e.preventDefault()
-  //   const newComprehensionQue = {
-  //         passage : input.passage,
-  //         questionTitle : input.questionTitle,
-  //         questionText : input.questionText,
-  //         option : input.option,
-  //   }
+  function handleClick(e) {
+    e.preventDefault();
+    const newComprehensionQue = {
+      passage: input.passage,
+      questionTitle: input.questionTitle,
+      questionText: input.questionText,
+      option: options,
+    };
+      console.log(newComprehensionQue);
+    axios.post("http://localhost:8080/comprehension", newComprehensionQue);
+  }
 
-  //   axios.post('http://localhost:8080/comprehension', newComprehensionQue)
-  // }
+  const handleAddForm = () => {
+    setShowForm((prevForms) => [...prevForms, {}]);
+  };
 
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      
+
+      <div className="flex min-h-full flex-1 flex-col justify-center px-3 py-12 lg:px-8 ">
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" action="#">
             <div>
@@ -177,28 +180,7 @@ function Form() {
               </button>
             </div>
 
-            <div className="mt-6 flex items-center justify-end gap-x-6">
-              <button
-                type="button"
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Save
-              </button>
-              <button
-                type="submit1"
-                onClick={OptionPost}
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Save ++
-              </button>
-            </div>
-
+            
             <div>
               <div className="inline-flex items-center">
                 <label className="mr-2 mb-2">
@@ -251,27 +233,43 @@ function Form() {
                   className="block w-40 mb-2 rounded-md border py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-              <div className="inline-flex items-center">
-                <label className="mr-2 mb-2">
-                  <input
-                    id="radio 4"
-                    type="radio"
-                    className="form-radio text-indigo-600 h-5 w-5 ml-2 "
-                    name="radioGroup"
-                  />
-                </label>
-                <input
-                  type="text"
-                  id="input 4"
-                  value={options[3]}
-                  onChange={(e) => handleOptionChange(3, e.target.value)}
-                  className="block w-40 mb-2 rounded-md border py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
+              
+              <div className="mt-6 flex items-center justify-end gap-x-6">
+              <button
+                type="button"
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                onClick={handleClick}
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Save
+              </button>
+             
+              <button
+          type="button"
+          onClick={handleAddForm}
+          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Add New Form
+        </button>
+            </div>
+            
+      {showForm.map((form, index) => (
+        <div key={index} className="mt-6">
+          
+          <Form />
+        </div>
+      ))}
+
             </div>
           </form>
         </div>
       </div>
+      
     </>
   );
 }

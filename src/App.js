@@ -8,7 +8,7 @@ import Home from "./Home";
 import Test from "./Test";
 import Registration from "./login/Registration";
 import Signin from "./login/Signin";
-
+import ClozeQuestion from './QuestionCreator'
 function App() {
 
   const router = createBrowserRouter([
@@ -31,6 +31,10 @@ function App() {
     {
       path: "/category",
       element: <Category></Category>,
+    },
+    {
+      path: "/clozequestion",
+      element: <ClozeQuestion></ClozeQuestion>,
     },
     {
       path: "/test",

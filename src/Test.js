@@ -18,6 +18,8 @@ function Test() {
   useEffect(() => {
     fechQuestion();
   }, []);
+
+  
   return (
     <>
       <Navbar />
